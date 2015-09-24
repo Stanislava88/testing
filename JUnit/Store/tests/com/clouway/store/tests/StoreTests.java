@@ -14,7 +14,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
- * Created by clouway on 9/14/15.
+ * Created by ivaylo_penev on 9/14/15.
  */
 public class StoreTests {
 

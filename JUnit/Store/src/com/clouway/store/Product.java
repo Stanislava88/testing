@@ -1,7 +1,7 @@
 package com.clouway.store;
 
 /**
- * Created by clouway on 9/14/15.
+ * Created by ivaylo_penev on 9/14/15.
  */
 public class Product implements Comparable<Product> {
 

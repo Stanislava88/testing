@@ -1,10 +1,5 @@
 #Ignore IDEA artifacts
-<<<<<<< HEAD
-Store.iml
-.idea/*
-=======
 *.iws
 *.class
 .idea/workspaces.xml
 .idea/vcs.xml
->>>>>>> adb46c177f4b1aa45623607e0763f4fa1aed41c4

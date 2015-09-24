@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
 /**
- * Created by clouway on 8/18/15.
+ * Created by ivaylo_penev on 8/18/15.
  */
 public class ArraysTestDemo {
 

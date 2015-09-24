@@ -1,4 +1,5 @@
+#Ignore IDEA artifacts
 *.iws
 *.class
 .idea/workspaces.xml
-.ida/vcs.xml
+.idea/vcs.xml

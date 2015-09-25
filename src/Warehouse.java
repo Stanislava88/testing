@@ -23,28 +23,33 @@ public class Warehouse {
 
     public void deliverProducts(String productToDeliver, int quantityToDeliver) {
         Product product = products.get(productToDeliver);
-        if(product==null){
-            dispay.setDisplayMessage("The warehouse cannot accept orders for "+productToDeliver);
+        if (product == null) {
+            dispay.setDisplayMessage("The warehouse cannot accept orders for " + productToDeliver);
             return;
         }
-        int quantity=products.get(productToDeliver).getQuantity();
-        int maxQuantity=products.get(productToDeliver).getMaxQuantity();
+        int quantity = products.get(productToDeliver).getQuantity();
+        int maxQuantity = products.get(productToDeliver).getMaxQuantity();
         int currentQuantity = quantity + quantityToDeliver;
 
         if (currentQuantity <= maxQuantity) {
             product.setQuantity(quantityToDeliver);
             dispay.setDisplayMessage(quantityToDeliver + " bottles of " + productToDeliver + " were delivered in the warehouse");
-        }else{
+        } else {
             dispay.setDisplayMessage("The quantity to deliver is more than the Warehouse can accept");
         }
     }
 
     public void sellProducts(String productForSale, int quantityForSale) {
-        Product product=products.get(productForSale);
-        int currentQuantity=product.getQuantity();
-
-        if(currentQuantity-quantityForSale>=0){
-            dispay.setDisplayMessage(quantityForSale+" bottles of "+productForSale+" were sold from the warehouse");
+        Product product = products.get(productForSale);
+        if (product == null) {
+            dispay.setDisplayMessage("Product not avaible!");
+            return;
+        }
+        int currentQuantity = product.getQuantity();
+        if (currentQuantity - quantityForSale >= 0) {
+            dispay.setDisplayMessage(quantityForSale + " bottles of " + productForSale + " were sold from the warehouse");
+        } else {
+            dispay.setDisplayMessage("There is not enough quantity of " + productForSale + " in the warehouse!");
         }
     }
 }

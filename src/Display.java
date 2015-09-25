@@ -4,8 +4,6 @@
 public class Display {
     private String price;
 
-
-
     public String displayMessage() {
         return price;
     }

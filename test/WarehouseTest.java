@@ -65,4 +65,18 @@ public class WarehouseTest {
         warehouse.sellProducts("Fanta", 15);
         assertEquals("15 bottles of Fanta were sold from the warehouse",display.displayMessage());
     }
+
+    @Test
+    public void tryToSellMoreProductsThanInStock(){
+        warehouse.deliverProducts("Cola",40);
+        warehouse.sellProducts("Cola", 41);
+        assertEquals("There is not enough quantity of Cola in the warehouse!",display.displayMessage());
+    }
+
+    @Test
+    public void tryToSellProductWhichTheWarehouseDoesNotOffer(){
+        warehouse.sellProducts("Zayo Bayo",20);
+        assertEquals("Product not avaible!",display.displayMessage());
+    }
+
 }

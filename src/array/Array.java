@@ -1,3 +1,5 @@
+package array;
+
 /**
  * Created by clouway on 15-9-25.
  */

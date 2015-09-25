@@ -1,3 +1,7 @@
+package array;
+
+import array.Array;
+import array.ArrayOutput;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;

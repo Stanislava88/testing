@@ -1,3 +1,5 @@
+package warehouse;
+
 /**
  * Created by clouway on 15-9-11.
  */
@@ -8,7 +10,7 @@ public class Display {
         return price;
     }
 
-    public void setDisplayMessage(String price) {
+    public void displayMessage(String price) {
         this.price = price;
     }
 }

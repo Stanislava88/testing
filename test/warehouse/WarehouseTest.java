@@ -1,4 +1,9 @@
+package warehouse;
+
 import org.junit.Test;
+import warehouse.Display;
+import warehouse.Product;
+import warehouse.Warehouse;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +14,7 @@ import static org.junit.Assert.assertEquals;
  * Created by clouway on 15-9-11.
  */
 public class WarehouseTest {
-    Map<String,Product> products = new HashMap<String,Product>(){{
+    Map<String, Product> products = new HashMap<String,Product>(){{
         put("Cola",new Product("$1.50",0,50));
         put("Fanta",new Product("$1.39",0,60));
 
@@ -31,13 +36,13 @@ public class WarehouseTest {
     @Test
     public void checkIfProductNameIsEmpty(){
         warehouse.checkProductPrice("");
-        assertEquals("Product not avaible!",display.displayMessage());
+        assertEquals("warehouse.Product not avaible!",display.displayMessage());
     }
 
     @Test
     public void checkIfProductIsNull(){
         warehouse.checkProductPrice(null);
-        assertEquals("Product not avaible!",display.displayMessage());
+        assertEquals("warehouse.Product not avaible!",display.displayMessage());
 
     }
 
@@ -50,7 +55,7 @@ public class WarehouseTest {
     @Test
     public void deliverMoredProductsThanTheWarehouseCanAccept(){
         warehouse.deliverProducts("Cola",70);
-        assertEquals("The quantity to deliver is more than the Warehouse can accept",display.displayMessage());
+        assertEquals("The quantity to deliver is more than the warehouse.Warehouse can accept",display.displayMessage());
     }
 
     @Test
@@ -76,7 +81,7 @@ public class WarehouseTest {
     @Test
     public void tryToSellProductWhichTheWarehouseDoesNotOffer(){
         warehouse.sellProducts("Zayo Bayo",20);
-        assertEquals("Product not avaible!",display.displayMessage());
+        assertEquals("warehouse.Product not avaible!",display.displayMessage());
     }
 
 }

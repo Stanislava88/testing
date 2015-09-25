@@ -1,3 +1,5 @@
+package warehouse;
+
 /**
  * Created by clouway on 15-9-11.
  */

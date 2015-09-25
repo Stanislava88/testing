@@ -1,4 +1,4 @@
-package warehouse;
+package com.clouway.warehouse;
 
 import java.util.Map;
 
@@ -16,7 +16,7 @@ public class Warehouse {
 
     public void checkProductPrice(String productName) {
         if (productName == null || productName.equals("")) {
-            dispay.displayMessage("warehouse.Product not avaible!");
+            dispay.displayMessage("Product not avaible!");
         } else if (products.containsKey(productName)) {
             String price = products.get(productName).getPrice();
             dispay.displayMessage(price);
@@ -26,7 +26,7 @@ public class Warehouse {
     public void deliverProducts(String productToDeliver, int quantityToDeliver) {
         Product product = products.get(productToDeliver);
         if (product == null) {
-            dispay.displayMessage("The warehouse cannot accept orders for " + productToDeliver);
+            dispay.displayMessage("The warehouse.warehouse cannot accept orders for " + productToDeliver);
             return;
         }
         int quantity = products.get(productToDeliver).getQuantity();
@@ -35,23 +35,23 @@ public class Warehouse {
 
         if (currentQuantity <= maxQuantity) {
             product.setQuantity(quantityToDeliver);
-            dispay.displayMessage(quantityToDeliver + " bottles of " + productToDeliver + " were delivered in the warehouse");
+            dispay.displayMessage(quantityToDeliver + " bottles of " + productToDeliver + " were delivered in the warehouse.warehouse");
         } else {
-            dispay.displayMessage("The quantity to deliver is more than the warehouse.Warehouse can accept");
+            dispay.displayMessage("The quantity to deliver is more than the Warehouse can accept");
         }
     }
 
     public void sellProducts(String productForSale, int quantityForSale) {
         Product product = products.get(productForSale);
         if (product == null) {
-            dispay.displayMessage("warehouse.Product not avaible!");
+            dispay.displayMessage("Product not avaible!");
             return;
         }
         int currentQuantity = product.getQuantity();
         if (currentQuantity - quantityForSale >= 0) {
-            dispay.displayMessage(quantityForSale + " bottles of " + productForSale + " were sold from the warehouse");
+            dispay.displayMessage(quantityForSale + " bottles of " + productForSale + " were sold from the warehouse.warehouse");
         } else {
-            dispay.displayMessage("There is not enough quantity of " + productForSale + " in the warehouse!");
+            dispay.displayMessage("There is not enough quantity of " + productForSale + " in the warehouse.warehouse!");
         }
     }
 }

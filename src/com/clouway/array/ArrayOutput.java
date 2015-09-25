@@ -1,4 +1,4 @@
-package array;
+package com.clouway.array;
 
 /**
  * Created by clouway on 15-9-25.

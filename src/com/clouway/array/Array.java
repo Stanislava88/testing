@@ -1,4 +1,4 @@
-package array;
+package com.clouway.array;
 
 /**
  * Created by clouway on 15-9-25.
@@ -6,7 +6,7 @@ package array;
 public class Array {
     /**
      * @param array
-     * @return minimal element of the array
+     * @return minimal element of the com.clouway.array
      */
 
     public int getMinimalElement(int[] array) {
@@ -27,7 +27,7 @@ public class Array {
 
     /**
      * @param array
-     * @return sum of all elements of the array
+     * @return sum of all elements of the com.clouway.array
      */
 
     public int getSum(int[] array) {

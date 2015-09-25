@@ -1,4 +1,4 @@
-package warehouse;
+package com.clouway.warehouse;
 
 /**
  * Created by clouway on 15-9-11.

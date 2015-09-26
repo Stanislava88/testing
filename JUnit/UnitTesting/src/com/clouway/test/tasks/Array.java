@@ -1,9 +1,15 @@
 package com.clouway.test.tasks;
 
 /**
- * Created by clouway on 8/18/15.
+ * @author  ivaylo_penev<ipenev91@gmail.com> on 9/18/15.
  */
 public class Array {
+
+    /**k
+     *
+     * @param arr an array in which wll look for minimal element
+     * @return minimal element of array
+     */
     public int getMinElement(int[] arr) {
         if (arr.length == 0) {
             throw new IllegalArgumentException("Can't handle zero-length array.");
@@ -18,6 +24,11 @@ public class Array {
         return min;
     }
 
+    /**
+     *
+     * @param arr an array which reverse.
+     * @return reversed array
+     */
     public int[] reversedArray(int[] arr) {
         int[] reversedArray = new int[arr.length];
 
@@ -32,6 +43,11 @@ public class Array {
         return reversedArray;
     }
 
+    /**
+     *
+     * @param arr an array in which will sum all elements
+     * @return sum of all elements of array
+     */
     public int sum(int[] arr) {
         if (arr.length == 0) {
             throw new IllegalArgumentException("Zero-length array");
@@ -43,6 +59,12 @@ public class Array {
         }
         return sum;
     }
+
+    /**
+     *
+     * @param arr an array with elements which will print.
+     * @return all elements of given array.
+     */
     public int [] printAllElementsOfArray( int [] arr){
         return arr;
     }

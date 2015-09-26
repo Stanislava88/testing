@@ -3,53 +3,52 @@ package com.clouway.store;
 import java.util.*;
 
 /**
- * Created by ivaylo_penev on 9/14/15.
+ * @author ivaylo_penev<ipenev91@gmail.com> on 9/14/15.
  */
 public class Store {
 
-    private Map<String,Integer> productQuantity = new HashMap<>();
-    private Map<String,Product> productList = new HashMap<>();
-    private List<Product> price = new ArrayList<>();
+    private Map<String, Product> productList = new HashMap<>();
 
+    /**
+     *
+     * @param name is a name of Product in the Store added.
+     * @param product contains product characteristics.
+     */
+    public void addProduct(String name, Product product) {
 
-    public void addProduct(Product product) {
-          price.add(product);
-          productList.put(product.getName(),product);
+        productList.put(name, product);
 
-          if(product.getName().equals("")){
-              throw new EmptyProductException("Empty product name.");
-          }
-          if(product.getPrice() < 0 ){
-              throw new IllegalArgumentException("Negative price added");
-          }
-          if(product.getMaxQuantity()<0){
-              throw new IllegalArgumentException("Negative max quantity");
-          }
+        if (name == null || name.equals(" ")) {
+            throw new EmptyProductNameException("Empty product name added");
+        }
+        if (product.getPrice() < 0) {
+            throw new NegativePriceException("Negative price added");
+        }
+        if (product.getMaxQuantity() < 0) {
+            throw new NegativeMaxQuantityException("Negative max quantity");
+        }
+        if(product.getQuantity() < 0){
+            throw new IllegalArgumentException("Negative quantity added.");
+        }
     }
 
-    public void addQuantity(String name, int quantity) {
-          if(!productList.containsKey(name)){
-              throw new ProductNotFoundException("Product not found");
-          }
-          if(quantity > productList.get(name).getMaxQuantity()){
-              throw new MaxQuantityException("quantity us more than max quantity");
-          }
-          productQuantity.put(name,quantity);
-    }
-
+    /**
+     *
+     * @param name is a name of product in the Store.
+     * @param quantity is a quantity of product in the Store.
+     * @return quantity of product after sell.
+     */
     public int sell(String name, int quantity) {
-          if(!productList.containsKey(name)){
-              throw new  ProductNotFoundException("Product not found");
-          }
-          if(quantity > productQuantity.get(name)){
-              throw new MaxQuantityException("quantity is more than max quantity");
-          }
-          return productQuantity.get(name) - quantity;
+        Product product = productList.get(name);
+
+        if (!productList.containsKey(name)) {
+            throw new ProductNotFoundException("Product not found");
+        }
+        if (quantity > productList.get(name).getMaxQuantity()) {
+            throw new MaxQuantityException("quantity is more than max quantity");
+        }
+
+        return product.getQuantity() - quantity;
     }
 
-    public List<Product> sort() {
-         List<Product> sortProductByPrice = new ArrayList<>(price);
-         Collections.sort(sortProductByPrice);
-         return sortProductByPrice;
-    }
 }

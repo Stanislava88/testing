@@ -1,9 +1,7 @@
 package com.clouway.store.tests;
 
-import com.clouway.store.MaxQuantityException;
-import com.clouway.store.Product;
-import com.clouway.store.ProductNotFoundException;
-import com.clouway.store.Store;
+import com.clouway.store.*;
+import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,82 +12,60 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
- * Created by ivaylo_penev on 9/14/15.
+ * @author  ivaylo_penev <ipenev91@gmail.com> on 9/14/15.
  */
 public class StoreTests {
 
     private Store store;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         store = new Store();
     }
-    @Test
-    public void sellProduct(){
-        final Product apple = new Product("apple",2.1,20);
-        store.addProduct(apple);
-        store.addQuantity("apple", 12);
 
-        assertThat(store.sell("apple",6),is(6));
+    @Test
+    public void sellProduct() {
+
+        store.addProduct("apple", new Product(2.1, 20, 50));
+        assertThat(store.sell("apple", 6), is(14));
     }
 
     @Test(expected = ProductNotFoundException.class)
     public void sellNotFoundProduct() throws Exception {
-        final Product orange = new Product("orange",1.20,30);
 
-        store.addProduct(orange);
-        store.sell("kiwi",12);
-
+        store.addProduct("orange", new Product(1.20, 15, 30));
+        store.sell("kiwi", 12);
     }
 
-    @Test(expected = MaxQuantityException.class)
-    public void addProductWithQuantityMoreThanMaxQuantity() throws Exception {
-         final Product cabbage = new Product("cabbage",1.30,40);
-
-         store.addProduct(cabbage);
-         store.addQuantity("cabbage", 50);
-
-         assertThat(store.sell("cabbage",20),is(30));
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void addProductWithnegativePrice() throws Exception {
-        final Product carrot = new Product("carrot",-1.00,100);
-
-         store.addProduct(carrot);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void addProductWithNegativeMaxQuantity() throws Exception {
-        final Product lemon = new Product("lemon",1.10,-30);
-
-        store.addProduct(lemon);
-        store.addQuantity("lemon", 12);
-
-        assertThat(store.sell("lemon",6),is(6));
-    }
-
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = EmptyProductNameException.class)
     public void addProductWithEmptyName() throws Exception {
-        final Product carrot = new Product(" ",1.2,100);
 
-        store.addProduct(carrot);
+        store.addProduct(" ", new Product(1.00, 20, 50));
+    }
+
+
+    @Test(expected = NegativeMaxQuantityException.class)
+    public void addProductWithNegativeMaxQuantity() throws Exception {
+
+        store.addProduct("cabbage", new Product(1.10, 20, -30));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void addProductWithNegativeQuantity() throws Exception {
+
+        store.addProduct("orange", new Product(1.20, -10, 20));
+    }
+
+    @Test(expected = NegativePriceException.class)
+    public void addProductWithNegativePrice() throws Exception {
+
+        store.addProduct("cucumber", new Product(-1.00, 20, 40));
     }
 
     @Test
-    public void sortProductsByPrice() throws Exception {
-        final Product orange = new Product("orange",1.10,20);
-        final Product carrot = new Product("carrot",1.08,25);
-        final Product cabbage = new Product("cabbage",1.00,34);
+    public void tryToSellProductWithQuantityMoreThanQuantiNametyInTheStore() {
 
-        store.addProduct(orange);
-        store.addProduct(carrot);
-        store.addProduct(cabbage);
-
-        List<Product> sortProductList = new ArrayList<Product>(store.sort());
-
-        assertThat(sortProductList.get(0),is(cabbage));
-        assertThat(sortProductList.get(1),is(carrot));
-        assertThat(sortProductList.get(2),is(orange));
+        store.addProduct("lemon", new Product(0.80, 15, 30));
+        assertThat(store.sell("lemon", 16), is(-1));
     }
 }

@@ -4,11 +4,18 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 /**
- * Created by clouway on 8/18/15.
+ * @author  ivaylo_penev<ipenev91@gmail.com> on 9/18/15.
  */
-public class Sumator {
+public class Concatenator {
 
-    public String sum(String a, String b) {
+    /**
+     *
+     * @param a is first String
+     * @param b is second String
+     * @return concatenated Strings
+     */
+
+    public String concatenation(String a, String b) {
         if (a == null || b == null) {
             throw new IllegalArgumentException();
         }

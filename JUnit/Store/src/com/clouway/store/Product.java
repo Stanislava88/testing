@@ -1,34 +1,47 @@
 package com.clouway.store;
 
 /**
- * Created by ivaylo_penev on 9/14/15.
+ * @author ivaylo_penev<ipenev91@gmail.com> on 9/14/15.
  */
-public class Product implements Comparable<Product> {
+public class Product {
 
-    private String name;
     private Double price;
-    private int maxQuantity;
+    private int quantity;
+    public final int maxQuantity;
 
-    public Product(String name, Double price, int maxQuantity) {
-        this.name = name;
+    /**
+     *
+     * @param price is a price of product.
+     * @param quantity is a quantiy of product.
+     * @param maxQuantity is a max quantity of product.
+     */
+    public Product( Double price,int quantity,int maxQuantity) {
         this.price = price;
+        this.quantity = quantity;
         this.maxQuantity = maxQuantity;
     }
 
-    public String getName() {
-        return name;
-    }
-
+    /**
+     *
+     * @return price of product.
+     */
     public Double getPrice() {
         return price;
     }
 
+    /**
+     *
+     * @return max quantity of product.
+     */
     public int getMaxQuantity() {
         return maxQuantity;
     }
 
-    @Override
-    public int compareTo(Product o) {
-        return this.price.compareTo(o.getPrice());
+    /**
+     *
+     * @return current quantity of product.
+     */
+    public int getQuantity() {
+        return quantity;
     }
 }

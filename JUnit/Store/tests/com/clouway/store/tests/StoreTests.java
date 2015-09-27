@@ -62,10 +62,15 @@ public class StoreTests {
         store.addProduct("cucumber", new Product(-1.00, 20, 40));
     }
 
-    @Test
+    @Test(expected = StoreQuantityException.class)
     public void tryToSellProductWithQuantityMoreThanQuantiNametyInTheStore() {
 
         store.addProduct("lemon", new Product(0.80, 15, 30));
         assertThat(store.sell("lemon", 16), is(-1));
+    }
+
+    @Test(expected = MaxQuantityException.class)
+    public void tryToAddlProductQuantityMoreThanMaxQuantity() throws Exception {
+        store.addProduct("apple",new Product(1.10,40,35));
     }
 }

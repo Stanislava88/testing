@@ -30,6 +30,9 @@ public class Store {
         if(product.getQuantity() < 0){
             throw new IllegalArgumentException("Negative quantity added.");
         }
+        if(product.getQuantity() > product.getMaxQuantity()){
+            throw new MaxQuantityException("Product quantity added is more than max quantity of Store.");
+        }
     }
 
     /**
@@ -47,7 +50,9 @@ public class Store {
         if (quantity > productList.get(name).getMaxQuantity()) {
             throw new MaxQuantityException("quantity is more than max quantity");
         }
-
+        if( quantity > productList.get(name).getQuantity()){
+            throw new StoreQuantityException("quantity is more than quantity in the store.");
+        }
         return product.getQuantity() - quantity;
     }
 

@@ -18,7 +18,7 @@ public class Store {
 
         productList.put(name, product);
 
-        if (name == null || name.equals(" ")) {
+        if (name.equals(" ")) {
             throw new EmptyProductNameException("Empty product name added");
         }
         if (product.getPrice() < 0) {
@@ -32,6 +32,9 @@ public class Store {
         }
         if(product.getQuantity() > product.getMaxQuantity()){
             throw new MaxQuantityException("Product quantity added is more than max quantity of Store.");
+        }
+        if(productList.get(name) == null){
+            throw  new NullPointerException("Null Product added, cannot added null product.");
         }
     }
 

@@ -43,13 +43,11 @@ public class StoreTests {
         store.addProduct(" ", new Product(1.00, 20, 50));
     }
 
-
     @Test(expected = NegativeMaxQuantityException.class)
     public void addProductWithNegativeMaxQuantity() throws Exception {
 
         store.addProduct("cabbage", new Product(1.10, 20, -30));
     }
-
     @Test(expected = IllegalArgumentException.class)
     public void addProductWithNegativeQuantity() throws Exception {
 
@@ -72,5 +70,10 @@ public class StoreTests {
     @Test(expected = MaxQuantityException.class)
     public void tryToAddlProductQuantityMoreThanMaxQuantity() throws Exception {
         store.addProduct("apple",new Product(1.10,40,35));
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void nullProductAdded() throws Exception {
+       store.addProduct(null,new Product(1.20,20,25));
     }
 }

@@ -29,9 +29,6 @@ public class StoreTests {
         store.addProduct("apple", new Product(2.1, 20, 50));
         assertThat(store.sell("apple",6), is(14));
         assertThat(store.sell("apple",6),is(8));
-        assertThat(store.sell("apple",2),is(6));
-        assertThat(store.sell("apple",2),is(4));
-        assertThat(store.sell("apple",2),is(2));
     }
 
     @Test
@@ -40,10 +37,8 @@ public class StoreTests {
         store.addProduct("orange", new Product(0.80, 25, 35));
 
         assertThat(store.sell("kiwi",10),is(10));
-        assertThat(store.sell("kiwi",10),is(0));
-
         assertThat(store.sell("orange",15),is(10));
-        assertThat(store.sell("orange",5),is(5));
+        
     }
     @Test(expected = ProductNotFoundException.class)
     public void sellNotFoundProduct() throws Exception {
@@ -55,19 +50,19 @@ public class StoreTests {
     @Test(expected = EmptyProductNameException.class)
     public void addProductWithEmptyName() throws Exception {
 
-        store.addProduct(" ", new Product(1.00, 20, 50));
+        store.addProduct("",new Product(1.00, 20, 50));
     }
 
     @Test(expected = NegativeMaxQuantityException.class)
     public void addProductWithNegativeMaxQuantity() throws Exception {
 
-        store.addProduct("cabbage", new Product(1.10, 20, -30));
+        store.addProduct("cabbage",new Product(1.10, 20, -30));
     }
 
     @Test(expected = NegativePriceException.class)
     public void addProductWithNegativePrice() throws Exception {
 
-        store.addProduct("cucumber", new Product(-1.00, 20, 40));
+        store.addProduct("cucumber",new Product(-1.00, 20, 40));
     }
 
     @Test(expected = NullPointerException.class)

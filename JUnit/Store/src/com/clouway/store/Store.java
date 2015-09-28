@@ -18,7 +18,7 @@ public class Store {
 
         productList.put(name, product);
 
-        if (name.equals(" ")) {
+        if (name.equals("")) {
             throw new EmptyProductNameException("Empty product name added");
         }
         if (product.getPrice() < 0) {
@@ -26,6 +26,9 @@ public class Store {
         }
         if (product.getMaxQuantity() < 0) {
             throw new NegativeMaxQuantityException("Negative max quantity");
+        }
+         if( productList.get(name) == null){
+            throw new NullPointerException("Null product added, cannot add null product.");
         }
     }
     /**
@@ -42,9 +45,6 @@ public class Store {
         }
         if (quantity > productList.get(name).getMaxQuantity()) {
             throw new MaxQuantityException("quantity is more than max quantity");
-        }
-        if( productList.get(name) == null){
-            throw new NullPointerException("Null product added, cannot add null product.");
         }
         return product.getCurrentQuantity(quantity);
     }

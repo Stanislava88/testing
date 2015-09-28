@@ -12,7 +12,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
- * @author  ivaylo_penev <ipenev91@gmail.com> on 9/14/15.
+ * @author Ivaylo Penev(ipenev91@gmail.com) on 9/14/15.
  */
 public class StoreTests {
 
@@ -27,9 +27,24 @@ public class StoreTests {
     public void sellProduct() {
 
         store.addProduct("apple", new Product(2.1, 20, 50));
-        assertThat(store.sell("apple", 6), is(14));
+        assertThat(store.sell("apple",6), is(14));
+        assertThat(store.sell("apple",6),is(8));
+        assertThat(store.sell("apple",2),is(6));
+        assertThat(store.sell("apple",2),is(4));
+        assertThat(store.sell("apple",2),is(2));
     }
 
+    @Test
+    public void sellTwoProducts() throws Exception {
+        store.addProduct("kiwi",new Product(0.90,20,40));
+        store.addProduct("orange", new Product(0.80, 25, 35));
+
+        assertThat(store.sell("kiwi",10),is(10));
+        assertThat(store.sell("kiwi",10),is(0));
+
+        assertThat(store.sell("orange",15),is(10));
+        assertThat(store.sell("orange",5),is(5));
+    }
     @Test(expected = ProductNotFoundException.class)
     public void sellNotFoundProduct() throws Exception {
 
@@ -48,28 +63,11 @@ public class StoreTests {
 
         store.addProduct("cabbage", new Product(1.10, 20, -30));
     }
-    @Test(expected = IllegalArgumentException.class)
-    public void addProductWithNegativeQuantity() throws Exception {
-
-        store.addProduct("orange", new Product(1.20, -10, 20));
-    }
 
     @Test(expected = NegativePriceException.class)
     public void addProductWithNegativePrice() throws Exception {
 
         store.addProduct("cucumber", new Product(-1.00, 20, 40));
-    }
-
-    @Test(expected = StoreQuantityException.class)
-    public void tryToSellProductWithQuantityMoreThanQuantiNametyInTheStore() {
-
-        store.addProduct("lemon", new Product(0.80, 15, 30));
-        assertThat(store.sell("lemon", 16), is(-1));
-    }
-
-    @Test(expected = MaxQuantityException.class)
-    public void tryToAddlProductQuantityMoreThanMaxQuantity() throws Exception {
-        store.addProduct("apple",new Product(1.10,40,35));
     }
 
     @Test(expected = NullPointerException.class)

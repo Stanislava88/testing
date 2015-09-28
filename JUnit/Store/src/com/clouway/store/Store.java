@@ -27,17 +27,7 @@ public class Store {
         if (product.getMaxQuantity() < 0) {
             throw new NegativeMaxQuantityException("Negative max quantity");
         }
-        if(product.getQuantity() < 0){
-            throw new IllegalArgumentException("Negative quantity added.");
-        }
-        if(product.getQuantity() > product.getMaxQuantity()){
-            throw new MaxQuantityException("Product quantity added is more than max quantity of Store.");
-        }
-        if(productList.get(name) == null){
-            throw  new NullPointerException("Null Product added, cannot added null product.");
-        }
     }
-
     /**
      *
      * @param name is a name of product in the Store.
@@ -45,7 +35,7 @@ public class Store {
      * @return quantity of product after sell.
      */
     public int sell(String name, int quantity) {
-        Product product = productList.get(name);
+         Product product = productList.get(name);
 
         if (!productList.containsKey(name)) {
             throw new ProductNotFoundException("Product not found");
@@ -53,10 +43,10 @@ public class Store {
         if (quantity > productList.get(name).getMaxQuantity()) {
             throw new MaxQuantityException("quantity is more than max quantity");
         }
-        if( quantity > productList.get(name).getQuantity()){
-            throw new StoreQuantityException("quantity is more than quantity in the store.");
+        if( productList.get(name) == null){
+            throw new NullPointerException("Null product added, cannot add null product.");
         }
-        return product.getQuantity() - quantity;
+        return product.getCurrentQuantity(quantity);
     }
 
 }

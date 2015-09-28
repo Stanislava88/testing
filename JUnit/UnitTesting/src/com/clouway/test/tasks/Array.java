@@ -1,7 +1,7 @@
 package com.clouway.test.tasks;
 
 /**
- * @author  ivaylo_penev<ipenev91@gmail.com> on 9/18/15.
+ * @author Ivaylo Penev(ipenev91@gmail.com) on 9/18/15.
  */
 public class Array {
 

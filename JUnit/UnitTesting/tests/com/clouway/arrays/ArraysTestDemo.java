@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
 /**
- * @author ivaylo_penev on 9/18/15.
+ * @author Ivaylo Penev(ipenev91@gmail.com) on 9/27/15.
  */
 public class ArraysTestDemo {
 
@@ -20,17 +20,17 @@ public class ArraysTestDemo {
     }
 
     @Test
-    public void findMinElement() throws Exception {
+    public void findMinElementInTheArray() throws Exception {
         assertThat(1, is(arr.getMinElement(new int[]{1, 10, 6, 8, 17, 2, 13})));
     }
 
     @Test
-    public void testSumOfArrayElements() throws Exception {
+    public void SumOfArrayElements() throws Exception {
         assertThat(16, is(arr.sum(new int[]{1, 2, 3, 4, 5})));
     }
 
     @Test
-    public void reversedArrayTest() throws Exception {
+    public void reversedArray() throws Exception {
         int[] expectedArray = new int[]{5, 4, 3, 2, 1};
         assertThat(expectedArray, equalTo(arr.reversedArray(new int[]{1, 2, 3, 4, 5})));
     }

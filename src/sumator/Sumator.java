@@ -13,6 +13,7 @@ public class Sumator {
    * @return the sum of the strings
    */
   public int sum(String a, String b) {
+
     int s = Integer.parseInt(a);
     int t = Integer.parseInt(b);
     return s + t;

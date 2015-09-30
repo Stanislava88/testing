@@ -1,36 +1,39 @@
 package sumator;
 
-import junit.framework.TestCase;
+import org.junit.*;
+import org.junit.Test;
+import org.junit.Assert;
 
 /**
  * @author raikov.krasimir@gmail.com (Krasimir Raikov)
  */
-public class SumatorTest extends TestCase {
+public class SumatorTest {
   private Sumator sumator;
 
-  protected void setUp() throws Exception {
+  @Before
+  public void setUp() {
     sumator = new Sumator();
   }
 
-
-  public void testSum() {
+  @Test
+  public void Sum() {
     int i = sumator.sum("1", "2");
-    assertEquals(3, i);
+    Assert.assertEquals(3, i);
   }
 
-  public void testSumException() {
-    try {
-      sumator.sum("", "2");
-      fail("expected exception to be thrown when '' and '2' parameters are given, but it didn't happen");
-    } catch (IllegalArgumentException a) {
-    }
+  @Test(expected = IllegalArgumentException.class)
+  public void SumException() {
+    sumator.sum("", "2");
   }
 
-  public void testSumSymbolException() {
-    try {
-      sumator.sum("s", "4");
-      fail();
-    } catch (IllegalArgumentException a) {
-    }
+  @Test(expected = IllegalArgumentException.class)
+  public void SumSymbolException() {
+    sumator.sum("s", "4");
+
+  }
+
+  @After
+  public void tearDown() {
+    sumator = null;
   }
 }

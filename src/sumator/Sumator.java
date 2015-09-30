@@ -16,5 +16,6 @@ public class Sumator {
     int s = Integer.parseInt(a);
     int t = Integer.parseInt(b);
     return s + t;
+
   }
 }

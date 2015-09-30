@@ -16,18 +16,18 @@ public class SumatorTest {
   }
 
   @Test
-  public void Sum() {
+  public void sum() {
     int i = sumator.sum("1", "2");
     Assert.assertEquals(3, i);
   }
 
   @Test(expected = IllegalArgumentException.class)
-  public void SumException() {
+  public void sumException() {
     sumator.sum("", "2");
   }
 
   @Test(expected = IllegalArgumentException.class)
-  public void SumSymbolException() {
+  public void sumSymbolException() {
     sumator.sum("s", "4");
 
   }

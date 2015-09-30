@@ -12,7 +12,7 @@ public class Sumator {
    * @param b the second string
    * @return the sum of the strings
    */
-  public int sum(String a, String b) {
+  public int sum(String a, String b) throws IllegalArgumentException {
 
     int s = Integer.parseInt(a);
     int t = Integer.parseInt(b);

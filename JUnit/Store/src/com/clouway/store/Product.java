@@ -18,8 +18,12 @@ public class Product {
         this.price = price;
         this.currentQuantity = currentQuantity;
         this.maxQuantity = maxQuantity;
+<<<<<<< HEAD
 
     }
 
 
+=======
+    }
+>>>>>>> 23a337f5d14222abef2282ddcde6a8f4acc0c682
 }

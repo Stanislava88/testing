@@ -33,6 +33,8 @@ public class StoreTests {
         assertThat(store.sell("apple", 2), is(6));
         assertThat(store.sell("apple", 2), is(4));
         assertThat(store.sell("apple", 2), is(2));
+        assertThat(store.sell("apple", 6), is(2));
+
     }
 
     @Test
@@ -52,12 +54,19 @@ public class StoreTests {
         store.addProduct("kiwi", new Product(1.10, 20, 30));
 
         assertThat(store.sell("apple", 10), is(10));
+        assertThat(store.sell("orange", 15), is(10));
+
+    }
+
+    @Test(expected = ProductNotFoundException.class)
+    public void sellProductNotFound() throws Exception {
+        store.addProduct("apple", new Product(1.20, 20, 40));
+        assertThat(store.sell("kiwi", 10), is(10));
     }
 
     @Test(expected = MaxQuantityException.class)
     public void addProductWithNegativeMaxQuantity() throws Exception {
         store.addProduct("cabbage", new Product(1.00, 20, -35));
-
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -72,7 +81,7 @@ public class StoreTests {
 
     @Test(expected = EmptyProductNameException.class)
     public void addProductWithEmptyFields() throws Exception {
-        store.addProduct("",new Product(1.20,30,40));
+        store.addProduct("", new Product(1.20, 30, 40));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -89,4 +98,5 @@ public class StoreTests {
 
         assertThat(store.profit("apple", 10), is(8.00));
     }
+
 }

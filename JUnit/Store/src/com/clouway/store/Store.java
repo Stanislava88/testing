@@ -7,46 +7,52 @@ import java.util.*;
  */
 public class Store {
 
-    private Map<String, Product> productList = new HashMap<>();
+    private Product product;
+    private HashMap<String, Product> productList = new HashMap<>();
 
     /**
-     *
-     * @param name is a name of Product in the Store added.
+     * @param name    is a name of Product in the Store added.
      * @param product contains product characteristics.
      */
     public void addProduct(String name, Product product) {
 
         productList.put(name, product);
 
-        if (name.equals(" ")) {
+        if (name.equals("")) {
             throw new EmptyProductNameException("Empty product name added");
         }
-        if (product.getPrice() < 0) {
-            throw new NegativePriceException("Negative price added");
+        if (product.maxQuantity < 0) {
+            throw new MaxQuantityException("Add negative max quantity, cannot add negative max quantity");
         }
-        if (product.getMaxQuantity() < 0) {
-            throw new NegativeMaxQuantityException("Negative max quantity");
+        if (product.currentQuantity < 0) {
+            throw new IllegalArgumentException("Negative quantity of product added,cannot add negative quantity ");
+        }
+        if (product.price < 0) {
+            throw new IllegalArgumentException("Negative price of product added,cannot add negative price");
         }
     }
     /**
-     *
-     * @param name is a name of product in the Store.
+     * @param name     is a name of product in the Store.
      * @param quantity is a quantity of product in the Store.
      * @return quantity of product after sell.
      */
     public int sell(String name, int quantity) {
-         Product product = productList.get(name);
+        product = productList.get(name);
 
         if (!productList.containsKey(name)) {
             throw new ProductNotFoundException("Product not found");
         }
-        if (quantity > productList.get(name).getMaxQuantity()) {
-            throw new MaxQuantityException("quantity is more than max quantity");
+        if (product.currentQuantity - quantity < 0) {
+            throw new IllegalArgumentException("Not enough product for sale.");
         }
-        if( productList.get(name) == null){
-            throw new NullPointerException("Null product added, cannot add null product.");
-        }
-        return product.getCurrentQuantity(quantity);
+        return product.currentQuantity -= quantity;
+    }
+
+    public double profit(String name, int quantity) {
+
+        return product.price * (product.currentQuantity - quantity);
+
     }
 
 }
+

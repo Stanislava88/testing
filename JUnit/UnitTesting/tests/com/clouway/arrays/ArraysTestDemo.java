@@ -25,7 +25,7 @@ public class ArraysTestDemo {
     }
 
     @Test
-    public void SumOfArrayElements() throws Exception {
+    public void sumOfArrayElements() throws Exception {
         assertThat(16, is(arr.sum(new int[]{1, 2, 3, 4, 5})));
     }
 

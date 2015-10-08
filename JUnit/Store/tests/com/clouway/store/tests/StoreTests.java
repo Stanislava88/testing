@@ -99,7 +99,7 @@ public class StoreTests {
 
         store.sell("apple", 10); // quantity is in kilograms
 
-        assertThat(store.profit("apple", 10), is(8.00));
+        assertThat(store.profit("apple", 10), is(8.0));
     }
 
     @Test
@@ -110,7 +110,7 @@ public class StoreTests {
         store.sell("apple", 10);
         store.sell("kiwi", 10);
 
-        assertThat(store.totalProfit("apple", "kiwi", 10, 10), is(17.00));
+        assertThat(store.totalProfit("apple", "kiwi", 10, 10), is(17.0));
     }
 
 }

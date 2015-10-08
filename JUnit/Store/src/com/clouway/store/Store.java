@@ -13,8 +13,10 @@ public class Store {
 
     public void addProduct(String name, Product product) {
 
-        products.put(name, product);
+        if( name != null || !name.equals("") ) {
 
+            products.put(name, product);
+        }
         if (product.price < 0) {
             throw new IllegalArgumentException("negative price added, cannot add negative price of product");
         }

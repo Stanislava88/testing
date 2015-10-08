@@ -33,7 +33,6 @@ public class StoreTests {
         assertThat(store.sell("apple", 2), is(6));
         assertThat(store.sell("apple", 2), is(4));
         assertThat(store.sell("apple", 2), is(2));
-        assertThat(store.sell("apple", 6), is(2));
 
     }
 
@@ -90,13 +89,29 @@ public class StoreTests {
         assertThat(store.sell("apple", 16), is(-1));
     }
 
+    @Test(expected = NullProductException.class)
+    public void addNullProduct() throws Exception {
+        store.addProduct(null, new Product(1.20, 30, 45));
+    }
+
     @Test
     public void profitAfterSellProduct() throws Exception {
         store.addProduct("apple", new Product(0.80, 30, 40));
 
-        store.sell("apple", 10);
+        store.sell("apple", 10); // quantity is in kilograms
 
         assertThat(store.profit("apple", 10), is(8.00));
+    }
+
+    @Test
+    public void profitAfterTwoSellProduct() throws Exception {
+        store.addProduct("apple", new Product(0.80, 30, 40));
+        store.addProduct("kiwi", new Product(0.90, 30, 40));
+
+        store.sell("apple", 10);
+        store.sell("kiwi", 10);
+
+        assertThat(store.totalProfit("apple", "kiwi", 10, 10), is(17.00));
     }
 
 }

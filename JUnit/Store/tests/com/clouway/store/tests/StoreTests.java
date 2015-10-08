@@ -33,8 +33,6 @@ public class StoreTests {
         assertThat(store.sell("apple", 2), is(6));
         assertThat(store.sell("apple", 2), is(4));
         assertThat(store.sell("apple", 2), is(2));
-        assertThat(store.sell("apple", 6), is(2));
-
     }
 
     @Test

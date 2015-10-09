@@ -46,22 +46,13 @@ public class StoreTests {
         assertThat(store.sell("orange", 15), is(10));
         assertThat(store.sell("orange", 5), is(5));
     }
-
     @Test(expected = ProductNotFoundException.class)
-    public void sellNotFoundProduct() throws Exception {
+    public void sellNotExistProduct() throws Exception {
         store.addProduct("kiwi", new Product(1.10, 20, 30));
 
         assertThat(store.sell("apple", 10), is(10));
         assertThat(store.sell("orange", 15), is(10));
-
     }
-
-    @Test(expected = ProductNotFoundException.class)
-    public void sellProductNotFound() throws Exception {
-        store.addProduct("apple", new Product(1.20, 20, 40));
-        assertThat(store.sell("kiwi", 10), is(10));
-    }
-
     @Test(expected = MaxQuantityException.class)
     public void addProductWithNegativeMaxQuantity() throws Exception {
         store.addProduct("cabbage", new Product(1.00, 20, -35));
@@ -78,7 +69,7 @@ public class StoreTests {
     }
 
     @Test(expected = EmptyProductNameException.class)
-    public void addProductWithEmptyFields() throws Exception {
+    public void addProductWithEmptyName() throws Exception {
         store.addProduct("", new Product(1.20, 30, 40));
     }
 

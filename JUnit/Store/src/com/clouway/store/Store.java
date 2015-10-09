@@ -13,8 +13,7 @@ public class Store {
 
     public void addProduct(String name, Product product) {
 
-        if( name != null || !name.equals("") ) {
-
+        if (name != null && !name.equals("")) {
             products.put(name, product);
         }
         if (product.price < 0) {

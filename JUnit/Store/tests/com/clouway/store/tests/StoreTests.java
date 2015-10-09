@@ -48,7 +48,7 @@ public class StoreTests {
     }
 
     @Test(expected = ProductNotFoundException.class)
-    public void sellNotExistProduct() throws Exception {
+    public void sellNotExistingProduct() throws Exception {
         store.addProduct("apple", new Product(1.20, 20, 40));
         assertThat(store.sell("kiwi", 10), is(10));
     }

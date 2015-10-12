@@ -1,6 +1,5 @@
 package array;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,7 +24,7 @@ public class ArrayTest {
 
 
   @Test
-  public void GetMin() throws Exception {
+  public void getMin() throws Exception {
     int[] ints = {3, 4, 1, 6, 5};
     int[] ints2 = {1, 2, 3, -5};
     assertThat("min element not found", 1, is(equalTo(arr.getMin(ints))));
@@ -33,7 +32,7 @@ public class ArrayTest {
   }
 
   @Test
-  public void GetSum() throws Exception {
+  public void getSum() throws Exception {
     int[] ints = {3, 4, 1, 6, 5};
     int[] ints2 = {1, 1, 1};
     assertThat("sum not found", 19, is(equalTo(arr.getSum(ints))));
@@ -41,7 +40,7 @@ public class ArrayTest {
   }
 
   @Test
-  public void PrintAll() throws Exception {
+  public void printAll() throws Exception {
     PrintStream original = System.out;
     OutputStream os = new ByteArrayOutputStream();
     PrintStream ps = new PrintStream(os);
@@ -64,7 +63,7 @@ public class ArrayTest {
   }
 
   @Test
-  public void ArrRevert() throws Exception {
+  public void arrRevert() throws Exception {
     int[] ints = {1, 2, 3};
     int[] expected = {3, 2, 1};
     int[] ints2 = {9, 8, 0};

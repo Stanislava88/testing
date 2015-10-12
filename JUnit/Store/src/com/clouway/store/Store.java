@@ -9,7 +9,7 @@ public class Store {
 
     private Product product;
     private HashMap<String, Product> products = new HashMap<>();
-
+    private List<Product> cart = new ArrayList();
 
     public void addProduct(String name, Product product) {
 
@@ -60,7 +60,7 @@ public class Store {
         double totalProfit = 0.0;
         double sum = 0.0;
 
-        for (int i = 0; i < profitList.size(); i++) {
+        for (int i = 0; i < cart.size(); i++) {
 
             product = profitList.get(i);
 

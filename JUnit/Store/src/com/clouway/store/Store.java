@@ -14,7 +14,7 @@ public class Store {
     public void addProduct(String name, Product product) {
 
         if( name != null && !name.equals("") ) {
-
+            cart.add(product);
             products.put(name, product);
         }
         if (product.price < 0) {

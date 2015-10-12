@@ -64,7 +64,7 @@ public class Store {
 
             product = cart.get(i);
 
-            totalProfit = product.getCurrentQuantity(sellQuantityOfProducts) * product.price;
+            totalProfit = sellQuantityOfProducts*product.price;
             sum += totalProfit;
         }
         return sum;

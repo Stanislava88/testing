@@ -8,13 +8,14 @@ import java.util.*;
 public class Store {
 
     private Product product;
+    private Order order;
     private HashMap<String, Product> products = new HashMap<>();
-    private List<Product> profitList = new ArrayList<>();
+    private List<Order> orderList = new ArrayList<>();
 
     public void addProduct(String name, Product product) {
 
+
         if (name != null && !name.equals("")) {
-            profitList.add(product);
             products.put(name, product);
         }
         if (product.price < 0) {
@@ -37,6 +38,10 @@ public class Store {
         }
     }
 
+    public void addOrder(Order order) {
+        orderList.add(order);
+    }
+
     public int sell(String name, int quantity) {
 
         product = products.get(name);
@@ -56,18 +61,19 @@ public class Store {
         return product.price * (sellQuantity);
     }
 
-    public double totalProfit(int sellQuantityOfProducts) {
+    public double totalProfit() {
+
         double totalProfit = 0.0;
-        double sum = 0.0;
+        double total = 0.0;
 
-        for (int i = 0; i < profitList.size(); i++) {
+        for (int i = 0; i < orderList.size(); i++) {
 
-            product = profitList.get(i);
+            order = orderList.get(i);
 
-            totalProfit = product.getCurrentQuantity(sellQuantityOfProducts) * product.price;
-            sum += totalProfit;
+            totalProfit = order.quantity * order.price;
+            total += totalProfit;
         }
-        return sum;
+        return total;
     }
 }
 

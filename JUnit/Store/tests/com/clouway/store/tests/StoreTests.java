@@ -25,6 +25,7 @@ public class StoreTests {
     public void setUp() {
         store = new Store();
     }
+
     @Test
     public void sellProduct() {
 
@@ -35,6 +36,7 @@ public class StoreTests {
         assertThat(store.sell("apple", 2), is(4));
         assertThat(store.sell("apple", 2), is(2));
     }
+
     @Test
     public void sellTwoProducts() throws Exception {
         store.addProduct("kiwi", new Product(0.90, 20, 40));
@@ -54,6 +56,7 @@ public class StoreTests {
         assertThat(store.sell("apple", 10), is(10));
         assertThat(store.sell("orange", 15), is(10));
     }
+
     @Test(expected = MaxQuantityException.class)
     public void addProductWithNegativeMaxQuantity() throws Exception {
         store.addProduct("cabbage", new Product(1.00, 20, -35));
@@ -96,11 +99,11 @@ public class StoreTests {
     @Test
     public void orderProfit() throws Exception {
 
-        store.addOrder(new Order("apple",30,1.20));
-        store.addOrder(new Order("kiwi",15,1.00));
-        store.addOrder(new Order("orange",12,1.50));
-        store.addOrder(new Order("lemon",10,0.80));
-        store.addOrder(new Order("cucumber",5,0.80));
+        store.addOrder(new Order("apple", 30, 1.20));
+        store.addOrder(new Order("kiwi", 15, 1.00));
+        store.addOrder(new Order("orange", 12, 1.50));
+        store.addOrder(new Order("lemon", 10, 0.80));
+        store.addOrder(new Order("cucumber", 5, 0.80));
 
         assertThat(store.totalProfit(), is(81.0));
     }

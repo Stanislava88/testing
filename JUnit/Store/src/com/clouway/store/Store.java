@@ -10,12 +10,14 @@ public class Store {
     private Product product;
     private Order order;
     private HashMap<String, Product> products = new HashMap<>();
+
     private List<Order> orderList = new ArrayList<>();
+
 
     public void addProduct(String name, Product product) {
 
-
         if (name != null && !name.equals("")) {
+
             products.put(name, product);
         }
         if (product.price < 0) {

@@ -62,7 +62,7 @@ public class Store {
 
         for (int i = 0; i < cart.size(); i++) {
 
-            product = profitList.get(i);
+            product = cart.get(i);
 
             totalProfit = product.getCurrentQuantity(sellQuantityOfProducts) * product.price;
             sum += totalProfit;

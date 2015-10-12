@@ -51,9 +51,9 @@ public class Store {
         return product.currentQuantity -= quantity;
     }
 
-    public double profit(String name, int quantity) {
+    public double profit(int sellQuantity) {
 
-        return product.price * (quantity);
+        return product.price * (sellQuantity);
     }
     public double totalProfit(int sellQuantityOfProducts) {
        

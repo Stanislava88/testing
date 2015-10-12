@@ -9,11 +9,12 @@ public class Store {
 
     private Product product;
     private HashMap<String, Product> products = new HashMap<>();
-
+    private List<Product> profitList = new ArrayList<>();
 
     public void addProduct(String name, Product product) {
 
         if (name != null && !name.equals("")) {
+            profitList.add(product);
             products.put(name, product);
         }
         if (product.price < 0) {
@@ -50,21 +51,23 @@ public class Store {
         return product.currentQuantity -= quantity;
     }
 
-    public double profit(String name, int quantity) {
+    public double profit(int sellQuantity) {
 
-        return product.price * (quantity);
+        return product.price * (sellQuantity);
     }
 
-    public double totalProfit(String product1, String product2, int quantityProduct1, int quantityProduct2) {
+    public double totalProfit(int sellQuantityOfProducts) {
+        double totalProfit = 0.0;
+        double sum = 0.0;
 
-        Product item1 = products.get(product1);
-        Product item2 = products.get(product2);
+        for (int i = 0; i < profitList.size(); i++) {
 
-        double profitFromItem1 = item1.price * (quantityProduct1);
-        double profitFromItem2 = item2.price * (quantityProduct2);
+            product = profitList.get(i);
 
-
-        return profitFromItem1 + profitFromItem2;
+            totalProfit = product.getCurrentQuantity(sellQuantityOfProducts) * product.price;
+            sum += totalProfit;
+        }
+        return sum;
     }
 }
 

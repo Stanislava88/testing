@@ -7,7 +7,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -46,6 +48,7 @@ public class StoreTests {
         assertThat(store.sell("orange", 15), is(10));
         assertThat(store.sell("orange", 5), is(5));
     }
+
     @Test(expected = ProductNotFoundException.class)
     public void sellNotExistProduct() throws Exception {
         store.addProduct("kiwi", new Product(1.10, 20, 30));
@@ -53,6 +56,7 @@ public class StoreTests {
         assertThat(store.sell("apple", 10), is(10));
         assertThat(store.sell("orange", 15), is(10));
     }
+
     @Test(expected = MaxQuantityException.class)
     public void addProductWithNegativeMaxQuantity() throws Exception {
         store.addProduct("cabbage", new Product(1.00, 20, -35));
@@ -90,18 +94,21 @@ public class StoreTests {
 
         store.sell("apple", 10); // quantity is in kilograms
 
-        assertThat(store.profit("apple", 10), is(8.0));
+        assertThat(store.profit(10), is(8.0));
     }
-
     @Test
-    public void profitAfterTwoSellProduct() throws Exception {
-        store.addProduct("apple", new Product(0.80, 30, 40));
-        store.addProduct("kiwi", new Product(0.90, 30, 40));
+    public void profitAfterSellMoreProducts() throws Exception {
+
+        store.addProduct("apple", new Product(0.90, 30, 30));
+        store.addProduct("orange", new Product(1.00, 30, 30));
+        store.addProduct("kiwi", new Product(1.00, 30, 30));
+        store.addProduct("patatoes", new Product(1.50, 30, 40));
 
         store.sell("apple", 10);
+        store.sell("orange", 10);
         store.sell("kiwi", 10);
+        store.sell("patatoes", 10);
 
-        assertThat(store.totalProfit("apple", "kiwi", 10, 10), is(17.0));
+        assertThat(store.totalProfit(10), is(44.0));
     }
-
 }

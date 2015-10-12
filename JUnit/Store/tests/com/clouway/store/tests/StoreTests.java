@@ -90,18 +90,22 @@ public class StoreTests {
 
         store.sell("apple", 10); // quantity is in kilograms
 
-        assertThat(store.profit("apple", 10), is(8.0));
+        assertThat(store.profit(10), is(8.0));
     }
-
     @Test
-    public void profitAfterTwoSellProduct() throws Exception {
-        store.addProduct("apple", new Product(0.80, 30, 40));
-        store.addProduct("kiwi", new Product(0.90, 30, 40));
+    public void profitAfterSellMoreProducts() throws Exception {
+
+        store.addProduct("apple", new Product(0.90, 30, 30));
+        store.addProduct("orange", new Product(1.00, 30, 30));
+        store.addProduct("kiwi", new Product(1.00, 30, 30));
+        store.addProduct("patatoes", new Product(1.50, 30, 40));
 
         store.sell("apple", 10);
+        store.sell("orange", 10);
         store.sell("kiwi", 10);
+        store.sell("patatoes", 10);
 
-        assertThat(store.totalProfit("apple", "kiwi", 10, 10), is(17.0));
+        assertThat(store.totalProfit(10), is(44.0));
     }
 
 }

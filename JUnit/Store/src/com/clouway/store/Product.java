@@ -20,8 +20,5 @@ public class Product {
         this.maxQuantity = maxQuantity;
 
     }
-     public int getCurrentQuantity(int quantity) {
-        return currentQuantity-= quantity;
-    }
 }
 

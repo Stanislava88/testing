@@ -55,17 +55,19 @@ public class Store {
 
         return product.price * (quantity);
     }
+    public double totalProfit(int sellQuantityOfProducts) {
+       
+        double totalProfit = 0.0;
+        double sum = 0.0;
 
-    public double totalProfit(String product1, String product2, int quantityProduct1, int quantityProduct2) {
+        for (int i = 0; i < profitList.size(); i++) {
 
-        Product item1 = products.get(product1);
-        Product item2 = products.get(product2);
+            product = profitList.get(i);
 
-        double profitFromItem1 = item1.price * (quantityProduct1);
-        double profitFromItem2 = item2.price * (quantityProduct2);
-
-
-        return profitFromItem1 + profitFromItem2;
+            totalProfit = product.getCurrentQuantity(sellQuantityOfProducts) * product.price;
+            sum += totalProfit;
+        }
+        return sum;
     }
 }
 

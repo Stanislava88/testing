@@ -6,11 +6,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -29,7 +24,7 @@ public class StoreTests {
     @Test
     public void sellProduct() {
 
-        store.addProduct("apple", new Product(2.1, 20, 50));
+        store.addProduct(new Product("apple", 2.1), 20, 50);
         assertThat(store.sell("apple", 6), is(14));
         assertThat(store.sell("apple", 6), is(8));
         assertThat(store.sell("apple", 2), is(6));
@@ -39,8 +34,8 @@ public class StoreTests {
 
     @Test
     public void sellTwoProducts() throws Exception {
-        store.addProduct("kiwi", new Product(0.90, 20, 40));
-        store.addProduct("orange", new Product(0.80, 25, 35));
+        store.addProduct(new Product("kiwi", 0.90), 20, 40);
+        store.addProduct(new Product("orange", 1.90), 25, 40);
 
         assertThat(store.sell("kiwi", 10), is(10));
         assertThat(store.sell("kiwi", 10), is(0));
@@ -50,61 +45,109 @@ public class StoreTests {
     }
 
     @Test(expected = ProductNotFoundException.class)
-    public void sellNotExistProduct() throws Exception {
-        store.addProduct("kiwi", new Product(1.10, 20, 30));
+    public void sellNotExistingProduct() throws Exception {
 
-        assertThat(store.sell("apple", 10), is(10));
-        assertThat(store.sell("orange", 15), is(10));
+        store.addProduct(new Product("apple", 1.20), 20, 45);
+
+        assertThat(store.sell("kiwi", 10), is(10));
     }
 
-    @Test(expected = MaxQuantityException.class)
+    @Test(expected = NegativeMaxQuantityException.class)
     public void addProductWithNegativeMaxQuantity() throws Exception {
-        store.addProduct("cabbage", new Product(1.00, 20, -35));
+        store.addProduct(new Product("cabbage", 1.00), 20, -35);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void addProductWithNegativeCurrentQuantity() throws Exception {
-        store.addProduct("cucumber", new Product(1.20, -15, 20));
+        store.addProduct(new Product("cucumber", 1.20), -15, 20);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void addProductWithNegativePrice() throws Exception {
-        store.addProduct("apple", new Product(-1.20, 30, 35));
+        store.addProduct(new Product("apple", -1.20), 30, 35);
     }
 
-    @Test(expected = EmptyProductNameException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void addProductWithEmptyName() throws Exception {
-        store.addProduct("", new Product(1.20, 30, 40));
+        store.addProduct(new Product("", 1.20), 30, 40);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void sellProductWithQuantityMoreThanQuantityInTheStore() throws Exception {
-        store.addProduct("apple", new Product(1.20, 15, 30));
+        store.addProduct(new Product("apple", 1.20), 15, 30);
         assertThat(store.sell("apple", 16), is(-1));
     }
 
     @Test(expected = NullProductException.class)
     public void addNullProduct() throws Exception {
-        store.addProduct(null, new Product(1.20, 30, 45));
+        store.addProduct(new Product(null, 1.20), 30, 45);
     }
 
     @Test
-    public void profitAfterSellProduct() throws Exception {
-        store.addProduct("apple", new Product(0.80, 30, 40));
+    public void profitAfterSellOneProduct() throws Exception {
+        OrderedProduct apple = new OrderedProduct("apple", 50, 1.40, 1.45);
 
-        store.sell("apple", 10); // quantity is in kilograms
+        store.register(apple);
 
-        assertThat(store.profit(10), is(8.0));
+        store.sellOrderedProduct(apple, 5);
+
+        assertThat(store.profit(), is(0.25));
     }
+
     @Test
-    public void orderProfit() throws Exception {
+    public void profitAfterSellMoreProducts() throws Exception {
 
-        store.addOrder(new Order("apple", 30, 1.20));
-        store.addOrder(new Order("kiwi", 15, 1.00));
-        store.addOrder(new Order("orange", 12, 1.50));
-        store.addOrder(new Order("lemon", 10, 0.80));
-        store.addOrder(new Order("cucumber", 5, 0.80));
+        OrderedProduct apple = new OrderedProduct("apple", 50, 1.40, 1.45);
+        OrderedProduct orange = new OrderedProduct("orange", 50, 1.40, 1.55);
+        OrderedProduct kiwi = new OrderedProduct("kiwi", 50, 1.40, 1.45);
 
-        assertThat(store.totalProfit(), is(81.0));
+        store.register(apple);
+        store.register(orange);
+        store.register(kiwi);
+
+        store.sellOrderedProduct(apple, 10);
+        store.sellOrderedProduct(orange, 10);
+        store.sellOrderedProduct(kiwi, 5);
+
+        assertThat(store.profit(), is(1.25));
+    }
+
+    @Test
+    public void loosesAfterSellProduct() throws Exception {
+
+        OrderedProduct apple = new OrderedProduct("apple", 50, 1.40, 1.35);
+
+        store.register(apple);
+
+        store.sellOrderedProduct(apple, 5);
+
+        assertThat(store.losses(), is(-0.25));
+    }
+
+    @Test
+    public void lossesAfterSellMoreProducts() throws Exception {
+
+        OrderedProduct apple = new OrderedProduct("apple", 50, 1.40, 1.35);
+        OrderedProduct orange = new OrderedProduct("orange", 30, 1.40, 1.25);
+
+        store.register(apple);
+        store.register(orange);
+
+        store.sellOrderedProduct(apple, 10);
+        store.sellOrderedProduct(orange, 10);
+
+        assertThat(store.losses(), is(-2.00));
+    }
+
+    @Test
+    public void amountProfit() throws Exception {
+        OrderedProduct apple = new OrderedProduct("apple", 50, 1.40, 1.35);
+
+        store.register(apple);
+
+        store.sellOrderedProduct(apple, 5);
+
+        assertThat(store.amountMoney(), is(6.75));
+
     }
 }

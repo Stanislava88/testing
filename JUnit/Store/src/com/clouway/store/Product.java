@@ -1,24 +1,21 @@
 package com.clouway.store;
 
 /**
- * @author Ivaylo Penev(ipenev91@gmail.com) on 9/14/15.
+ * @author Ivaylo Penev(ipenev91@gmail.com)
  */
 public class Product {
 
-    public final Double price;
-    public int currentQuantity;
-    public final int maxQuantity;
+    public String name;
+    public Double price;
 
     /**
-     * @param price           is a price of product.
-     * @param currentQuantity is a quantiy of product.
-     * @param maxQuantity     is a max quantity of product.
+     *
+     * @param name - name of product
+     * @param price - price of product
      */
-    public Product(Double price, int currentQuantity, int maxQuantity) {
+    public Product(String name,Double price) {
+        this.name = name;
         this.price = price;
-        this.currentQuantity = currentQuantity;
-        this.maxQuantity = maxQuantity;
-
     }
 }
 

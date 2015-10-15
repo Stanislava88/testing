@@ -8,8 +8,8 @@ import java.util.*;
  */
 public class Store {
 
-    private ProductPlot product;
-    private HashMap<String, ProductPlot> products = new HashMap<>();
+    private ProductSlot product;
+    private HashMap<String, ProductSlot> products = new HashMap<>();
     private List<OrderedProduct> orderedList = new ArrayList<>();
     private List<Integer> sellQuantites = new ArrayList<>();
 
@@ -39,7 +39,7 @@ public class Store {
         if (product.name.equals("")) {
             throw new IllegalArgumentException("Empty product is added.");
         }
-        products.put(product.name, new ProductPlot(product, currentQuantity, maxQuantity));
+        products.put(product.name, new ProductSlot(product, currentQuantity, maxQuantity));
     }
 
     /**

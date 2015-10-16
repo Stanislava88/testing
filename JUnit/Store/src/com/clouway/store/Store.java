@@ -17,7 +17,6 @@ public class Store {
      * @param product         - delivered product in the store
      * @param currentQuantity - deliver quantity
      * @param maxQuantity     - max quantiy which store can received.
-     *
      */
     public void addProduct(Product product, int currentQuantity, int maxQuantity) {
 
@@ -44,19 +43,18 @@ public class Store {
 
     /**
      * @param order - ordered product which register in the store;
-     *
      */
 
     public void register(OrderedProduct order) {
         orderedList.add(order);
     }
 
+
     /**
      * @param product      - ordered product which store received.
      * @param sellQuantity - quantity which we sold from store.
      * @return sell quantity of ordered product;
      */
-
 
     public int sellOrderedProduct(OrderedProduct product, int sellQuantity) {
 
@@ -80,17 +78,12 @@ public class Store {
 
     /**
      * @return profit of store when sell products;
-     *
      */
 
     public double profit() {
 
         double profit = 0.0;
         double total = 0.0;
-
-        DecimalFormat df = new DecimalFormat("0.00");
-        String totalFormat = df.format(total);
-        Double totalValue = Double.parseDouble(totalFormat);
 
         for (int i = 0; i < orderedList.size(); i++) {
 
@@ -107,14 +100,13 @@ public class Store {
             String profitFormat = pf.format(profit);
             Double profitValue = Double.parseDouble(profitFormat);
 
-            totalValue += profitValue;
+            total += profitValue;
         }
-        return totalValue;
+        return total;
     }
 
     /**
      * @return losses after sell product with price less than delivered price.
-     *
      */
 
     public double losses() {
@@ -122,9 +114,6 @@ public class Store {
         double losses = 0.0;
         double total = 0.0;
 
-        DecimalFormat df = new DecimalFormat("0.00");
-        String totalFormat = df.format(total);
-        Double totalValue = Double.parseDouble(totalFormat);
 
         for (int i = 0; i < orderedList.size(); i++) {
 
@@ -141,9 +130,9 @@ public class Store {
             String lossesFormat = pf.format(losses);
             Double lossesValue = Double.parseDouble(lossesFormat);
 
-            totalValue += lossesValue;
+            total += lossesValue;
         }
-        return totalValue;
+        return total;
     }
 
     /**

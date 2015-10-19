@@ -1,161 +1,67 @@
 package com.clouway.store;
 
-import java.text.DecimalFormat;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Ivaylo Penev(ipenev91@gmail.com)
  */
 public class Store {
+    Map<String, Product> products = new HashMap<>();
 
-    private ProductSlot product;
-    private HashMap<String, ProductSlot> products = new HashMap<>();
-    private List<OrderedProduct> orderedList = new ArrayList<>();
-    private List<Integer> sellQuantites = new ArrayList<>();
+    private double profit;
+    private double losses;
 
-    /**
-     * @param product         - delivered product in the store
-     * @param currentQuantity - deliver quantity
-     * @param maxQuantity     - max quantiy which store can received.
-     */
-    public void addProduct(Product product, int currentQuantity, int maxQuantity) {
-
-        if (product.price < 0) {
-            throw new IllegalArgumentException("negative price added, cannot add negative price of product");
-        }
-        if (maxQuantity < 0) {
-            throw new NegativeMaxQuantityException("negative max quantity is added,cannot add negative max quantity");
-        }
-        if (currentQuantity < 0) {
-            throw new IllegalArgumentException("negative quantity of product added cannot add negative quantity.");
-        }
-        if (currentQuantity > maxQuantity) {
-            throw new IllegalArgumentException("try to add quantity more than max quantity");
-        }
+    public void register(Product product) {
         if (product.name == null) {
-            throw new NullProductException("Null product try to add.");
+            throw new IllegalArgumentException("Null product is added, cannot add null product");
         }
         if (product.name.equals("")) {
-            throw new IllegalArgumentException("Empty product is added.");
+            throw new IllegalArgumentException("Product with empty name is added, cannot add product with empty name");
         }
-        products.put(product.name, new ProductSlot(product, currentQuantity, maxQuantity));
+        if (product.currentQuantity < 0) {
+            throw new IllegalArgumentException("Negative quantity is added,cannot add product with negative quantity");
+        }
+        if (product.deliverPrice < 0) {
+            throw new IllegalArgumentException("Negative deliver product price is added,cannot add product with negative deliver price");
+        }
+        if (product.sellPrice < 0) {
+            throw new IllegalArgumentException("Negative sell product price is added,cannot add product with negative sell price");
+        }
+        products.put(product.name, product);
     }
 
-    /**
-     * @param order - ordered product which register in the store;
-     */
-
-    public void register(OrderedProduct order) {
-        orderedList.add(order);
-    }
-
-
-    /**
-     * @param product      - ordered product which store received.
-     * @param sellQuantity - quantity which we sold from store.
-     * @return sell quantity of ordered product;
-     */
-
-    public int sellOrderedProduct(OrderedProduct product, int sellQuantity) {
-
-        sellQuantites.add(sellQuantity);
-
-        return product.quantity -= sellQuantity;
-    }
-
-    public int sell(String name, int quantity) {
-
-        product = products.get(name);
-
+    public int sell(String name, int sellQuantity) {
         if (!products.containsKey(name)) {
-            throw new ProductNotFoundException("Product do not exist in the store");
+            throw new IllegalArgumentException("Product do not exist.");
         }
-        if (product.currentQuantity - quantity < 0) {
-            throw new IllegalArgumentException("Not enough product for sale");
-        }
-        return product.currentQuantity -= quantity;
-    }
 
-    /**
-     * @return profit of store when sell products;
-     */
+        Product product = products.get(name);
+
+        if (product.currentQuantity - sellQuantity < 0) {
+            throw new IllegalArgumentException("Not enough product for sell.");
+        }
+        profit = (product.sellPrice - product.deliverPrice) * sellQuantity;
+        losses = (product.sellPrice - product.deliverPrice) * sellQuantity;
+
+        return product.currentQuantity -= sellQuantity;
+    }
 
     public double profit() {
 
-        double profit = 0.0;
         double total = 0.0;
 
-        for (int i = 0; i < orderedList.size(); i++) {
+        total += profit;
 
-            OrderedProduct orderedProduct = orderedList.get(i);
-
-            for (int j = 0; j < sellQuantites.size(); j++) {
-
-                int sellQuantity = sellQuantites.get(j);
-
-                profit = (orderedProduct.sellPrice - orderedProduct.deliverPrice) * sellQuantity;
-
-            }
-            DecimalFormat pf = new DecimalFormat("0.00");
-            String profitFormat = pf.format(profit);
-            Double profitValue = Double.parseDouble(profitFormat);
-
-            total += profitValue;
-        }
         return total;
     }
-
-    /**
-     * @return losses after sell product with price less than delivered price.
-     */
 
     public double losses() {
-
-        double losses = 0.0;
         double total = 0.0;
 
+        total += losses;
 
-        for (int i = 0; i < orderedList.size(); i++) {
-
-            OrderedProduct orderedProduct = orderedList.get(i);
-
-            for (int j = 0; j < sellQuantites.size(); j++) {
-
-                int sellQuantity = sellQuantites.get(j);
-
-                losses = (orderedProduct.sellPrice - orderedProduct.deliverPrice) * sellQuantity;
-
-            }
-            DecimalFormat pf = new DecimalFormat("0.00");
-            String lossesFormat = pf.format(losses);
-            Double lossesValue = Double.parseDouble(lossesFormat);
-
-            total += lossesValue;
-        }
         return total;
     }
 
-    /**
-     * @return amount profit when sell product;
-     */
-    public double amountMoney() {
-
-        double amount = 0.0;
-        double total = 0.0;
-
-        for (int i = 0; i < orderedList.size(); i++) {
-
-            OrderedProduct orderedProduct = orderedList.get(i);
-
-            for (int j = 0; j < sellQuantites.size(); j++) {
-
-                int sellQuantity = sellQuantites.get(j);
-
-                amount = sellQuantity * orderedProduct.sellPrice;
-            }
-            total += amount;
-        }
-        return total;
-    }
 }
-

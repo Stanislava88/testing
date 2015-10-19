@@ -6,16 +6,14 @@ package com.clouway.store;
 public class Product {
 
     public String name;
-    public Double price;
+    public int currentQuantity;
+    public double deliverPrice;
+    public double sellPrice;
 
-    /**
-     *
-     * @param name - name of product
-     * @param price - price of product
-     */
-    public Product(String name,Double price) {
+    public Product(String name, int currentQuantity, double deliverPrice, double sellPrice) {
         this.name = name;
-        this.price = price;
+        this.currentQuantity = currentQuantity;
+        this.deliverPrice = deliverPrice;
+        this.sellPrice = sellPrice;
     }
 }
-

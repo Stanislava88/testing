@@ -6,35 +6,35 @@ import java.util.Comparator;
 import java.util.HashMap;
 
 /**
- * @author Stanislava Kaukova(sisiivanovva@gmail.com))
+ * @author Stanislava Kaukova(sisiivanovva@gmail.com)
  */
 public class Bank {
     private HashMap<Integer, Account> volt;
 
     public Bank(HashMap<Integer, Account> volt) {
-
         this.volt = volt;
     }
 
-    public void add(int id, Account account) {
-        volt.put(id, account);
+    public void createAccount(int id, Account account) {
+        if (!volt.containsKey(id)) {
+            volt.put(id, account);
+        } else throw new DoubleIdException("This id is not available");
     }
 
     public Account findById(int id) {
-        if (volt.containsKey(id)) {
-            return volt.get(id);
-        } else throw new AccountNotFoundException("This user is not available");
+
+        return getAccount(id);
     }
 
     public void withDraw(int id, double cash) {
-        Account account = volt.get(id);
+        Account account = getAccount(id);
         if (account.getCash() > cash) {
             account.withDraw(cash);
         } else throw new InsufficientCashException("You can't draw money. The cash is insufficient!");
     }
 
     public void deposit(int id, double cash) {
-        Account account = volt.get(id);
+        Account account = getAccount(id);
         if (account.getCash() + cash < account.limit) {
             account.deposit(cash);
         } else
@@ -53,5 +53,16 @@ public class Bank {
             }
         });
         return accountsId;
+    }
+
+    public Account remove(int id) {
+        volt.remove(id);
+        return getAccount(id);
+    }
+
+    private Account getAccount(int id) {
+        if (volt.containsKey(id)) {
+            return volt.get(id);
+        } else throw new AccountNotFoundException("This account is not available");
     }
 }

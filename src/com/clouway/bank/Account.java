@@ -1,13 +1,12 @@
 package com.clouway.bank;
 
 /**
- * @author Stanislava Kaukova(sisiivanovva@gmail.com))
+ * @author Stanislava Kaukova(sisiivanovva@gmail.com)
  */
 public class Account {
     public final double limit;
     private final String userName;
     private double cash;
-
 
     public Account(String userName, double cash, double limit) {
 
@@ -26,7 +25,6 @@ public class Account {
         if (Double.compare(account.cash, cash) != 0) return false;
         if (Double.compare(account.limit, limit) != 0) return false;
         return userName != null ? userName.equals(account.userName) : account.userName == null;
-
     }
 
     @Override

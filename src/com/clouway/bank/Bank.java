@@ -15,13 +15,13 @@ public class Bank {
         this.volt = volt;
     }
 
-    public void createAccount(int id, Account account) {
+    public void save(int id, Account account) {
         if (!volt.containsKey(id)) {
             volt.put(id, account);
         } else throw new DuplicateIdAccountException("This id is not available");
     }
 
-    public Account findById(int id) {
+    public Account find(int id) {
         return getAccount(id);
     }
 
@@ -56,15 +56,13 @@ public class Bank {
     }
 
     public void remove(int id) {
-        if (volt.containsKey(id)) {
-            volt.remove(id);
-            throw new AccountNotFoundException("This account is removed");
-        } else throw new AccountNotFoundException("This account is not available");
+        getAccount(id);
+        volt.remove(id);
     }
 
-    private Account getAccount(int id) {
-        if (volt.containsKey(id)) {
-            return volt.get(id);
-        } else throw new AccountNotFoundException("This account is not available");
+    private Account getAccount(int accountId) {
+        if (volt.containsKey(accountId)) {
+            return volt.get(accountId);
+        } else throw new AccountNotFoundException("This accountId is not available");
     }
 }

@@ -1,9 +1,6 @@
 package com.clouway.bank;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * @author Stanislava Kaukova(sisiivanovva@gmail.com)
@@ -56,8 +53,11 @@ public class Bank {
     }
 
     public void remove(int id) {
-        getAccount(id);
-        volt.remove(id);
+        if (volt.containsKey(id)) {
+            volt.remove(id);
+        } else {
+            throw new AccountNotFoundException("This account is not available");
+        }
     }
 
     private Account getAccount(int accountId) {

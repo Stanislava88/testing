@@ -6,11 +6,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-
-import static junit.framework.TestCase.fail;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.IsEqual.equalTo;
 
 /**
  * @author Stanislava Kaukova(sisiivanovva@gmail.com)
@@ -86,7 +83,6 @@ public class BankTest {
     public void exceedLimit() throws Exception {
         int accountId = 103;
         bank.save(accountId, new Account("Krasimir", 900, 1000));
-
         bank.deposit(accountId, 300);
     }
 
@@ -108,28 +104,18 @@ public class BankTest {
         assertThat(result, is(Arrays.asList(102, 103, 100, 101)));
     }
 
-    @Test
+    @Test(expected = AccountNotFoundException.class)
     public void remove() throws Exception {
         int accountId = 104;
 
         Account account = new Account("Maria", 300, 1000);
         bank.save(accountId, account);
-        int sizeBeforeRemove = accounts.size();
         bank.remove(accountId);
-        int result = accounts.size();
-
-        assertThat(result, is(sizeBeforeRemove - 1));
+        bank.find(accountId);
     }
 
-    @Test
+    @Test(expected = AccountNotFoundException.class)
     public void removeUndefineAccount() throws Exception {
-        int accountId = 104;
-        try {
-            bank.remove(accountId);
-
-            fail("Should be thrown exception");
-        } catch (AccountNotFoundException ex) {
-            assertThat(ex.getMessage(), is(equalTo("This accountId is not available")));
-        }
+        bank.remove(104);
     }
 }

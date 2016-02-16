@@ -19,9 +19,10 @@ public class BankTest {
 
     @Test
     public void happyPath() throws Exception {
+        int id = 12345;
         Account account = new Account("Ivan", 200, 1000);
-        bank.createAccount(12345, account);
-        Account result = bank.findById(12345);
+        bank.createAccount(id, account);
+        Account result = bank.findById(id);
 
         assertThat(result, is(account));
     }

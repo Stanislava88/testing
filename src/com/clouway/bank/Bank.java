@@ -18,11 +18,10 @@ public class Bank {
     public void createAccount(int id, Account account) {
         if (!volt.containsKey(id)) {
             volt.put(id, account);
-        } else throw new DoubleIdException("This id is not available");
+        } else throw new DuplicateIdAccountException("This id is not available");
     }
 
     public Account findById(int id) {
-
         return getAccount(id);
     }
 
@@ -35,7 +34,8 @@ public class Bank {
 
     public void deposit(int id, double cash) {
         Account account = getAccount(id);
-        if (account.getCash() + cash < account.limit) {
+        double totalAmount = account.getCash() + cash;
+        if (totalAmount < account.limit) {
             account.deposit(cash);
         } else
             throw new ExceedLimitException("You can't deposit. Exceed limit!");
@@ -55,9 +55,11 @@ public class Bank {
         return accountsId;
     }
 
-    public Account remove(int id) {
-        volt.remove(id);
-        return getAccount(id);
+    public void remove(int id) {
+        if (volt.containsKey(id)) {
+            volt.remove(id);
+            throw new AccountNotFoundException("This account is removed");
+        } else throw new AccountNotFoundException("This account is not available");
     }
 
     private Account getAccount(int id) {

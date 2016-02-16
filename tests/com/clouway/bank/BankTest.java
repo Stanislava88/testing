@@ -58,7 +58,7 @@ public class BankTest {
 
         bank.createAccount(id, new Account("Maria", 300, 1000));
         bank.deposit(id, 200);
-        Account result = bank.findById(100);
+        Account result = bank.findById(id);
 
         assertThat(result, is(new Account("Maria", 500, 1000)));
     }
@@ -68,7 +68,7 @@ public class BankTest {
         int id = 102;
 
         bank.createAccount(id, new Account("Ivan", 20, 1000));
-        bank.withDraw(102, 100);
+        bank.withDraw(id, 100);
     }
 
     @Test(expected = AccountNotFoundException.class)
@@ -80,7 +80,7 @@ public class BankTest {
     @Test(expected = ExceedLimitException.class)
     public void exceedLimit() throws Exception {
         int id = 103;
-        bank.createAccount(103, new Account("Krasimir", 20, 1000));
+        bank.createAccount(id, new Account("Krasimir", 20, 1000));
 
         bank.deposit(id, 1000);
     }

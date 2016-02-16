@@ -104,7 +104,7 @@ public class BankTest {
     }
 
     @Test
-    public void remove() throws Exception {
+    public void expectedExceptionAfterRemove() throws Exception {
         int id = 104;
         Account account = new Account("Maria", 300, 1000);
         try {

@@ -47,7 +47,7 @@ public class BankTest {
 
         bank.createAccount(id, new Account("Lilia", 500, 1000));
         bank.withDraw(id, 200);
-        Account result = bank.findById(101);
+        Account result = bank.findById(id);
 
         assertThat(result, is(new Account("Lilia", 300, 1000)));
     }
